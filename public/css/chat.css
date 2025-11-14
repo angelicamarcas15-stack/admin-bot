@@ -1,0 +1,29 @@
+  #messages {
+      scrollbar-width: thin !important;
+      scrollbar-color: #4b5563 #111827 !important;
+  }
+
+  #messages::-webkit-scrollbar {
+      width: 8px !important;
+  }
+
+  #messages::-webkit-scrollbar-track {
+      background: transparent !important;
+  }
+
+  #messages::-webkit-scrollbar-thumb {
+      background-color: #4b5563 !important;
+      /* gris */
+      border-radius: 9999px !important;
+      border: 2px solid transparent !important;
+      background-clip: padding-box !important;
+  }
+
+  #messages::-webkit-scrollbar-thumb:hover {
+      background-color: #6b7280 !important;
+  }
+
+  .active-user {
+      background-color: #5b5b5b !important;
+      padding-left: 12px;
+  }
