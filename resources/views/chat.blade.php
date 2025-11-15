@@ -118,7 +118,7 @@
 
 
         // ----------------------------------------------------------
-        //   MENSAJES CON TU DISEÑO EXACTO (LO QUE ME MOSTRASTE)
+        //   MENSAJES CON TU DISEÑO EXACTO (LO QUE ME MOSTRASTE) //
         // ----------------------------------------------------------
 
         let lastMessageDate = null;
