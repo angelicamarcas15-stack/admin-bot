@@ -58,8 +58,8 @@
                         <table class="w-full text-sm text-slate-300">
                             <thead class="text-cyan-400 border-b border-cyan-400/40 sticky top-0 bg-white/5 backdrop-blur">
                                 <tr>
-                                    <th class="text-left p-2">Indicador</th>
-                                    <th class="text-right p-2">Valor</th>
+                                    <th class="text-left p-2">Asesor</th>
+                                    <th class="text-right p-2">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
