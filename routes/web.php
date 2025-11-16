@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MapController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +25,6 @@ Route::get('/', function () {
 Route::get('/', [ChatController::class, 'index']);
 Route::get('/messages/{user}', [ChatController::class, 'fetchMessages']);
 Route::post('/messages', [ChatController::class, 'send']);
+
+
+Route::get('/map', [MapController::class, 'index']);

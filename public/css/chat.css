@@ -1,16 +1,20 @@
+  #chatlist,
   #messages {
       scrollbar-width: thin !important;
       scrollbar-color: #4b5563 #111827 !important;
   }
 
+  #chatlist ::-webkit-scrollbar,
   #messages::-webkit-scrollbar {
       width: 8px !important;
   }
 
+  #chatlist::-webkit-scrollbar-track,
   #messages::-webkit-scrollbar-track {
       background: transparent !important;
   }
 
+  #chatlist::-webkit-scrollbar-thumb,
   #messages::-webkit-scrollbar-thumb {
       background-color: #4b5563 !important;
       /* gris */
@@ -19,6 +23,7 @@
       background-clip: padding-box !important;
   }
 
+  #chatlist::-webkit-scrollbar-thumb:hover,
   #messages::-webkit-scrollbar-thumb:hover {
       background-color: #6b7280 !important;
   }

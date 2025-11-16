@@ -20,9 +20,10 @@
         <!-- CHAT LIST -->
         <section class="w-96 border-r border-white/5 flex flex-col p-4 gap-4">
 
-            <input class="w-full bg-[#1A2236] px-4 py-3 rounded-xl placeholder-gray-500" placeholder="Search" />
+            <input id="searchInput" class="w-full bg-[#1A2236] px-4 py-3 rounded-xl placeholder-gray-500"
+                placeholder="Buscar empresario" />
 
-            <div class="flex-1 overflow-y-auto space-y-3 pr-1">
+            <div id="chatlist" class="flex-1 overflow-y-auto space-y-3 pr-1">
                 @foreach ($users as $user)
                     @php
                         $nombreCompleto = trim(($user->nombres ?? '') . ' ' . ($user->apellidos ?? ''));
@@ -33,16 +34,22 @@
                     <div onclick="selectUser({{ $user->id }}, '{{ addslashes($displayName) }}')"
                         id="user-{{ $user->id }}"
                         class="flex items-center justify-between p-3 rounded-xl bg-[#1A2236] hover:bg-[#1f2a45] cursor-pointer">
+
                         <div class="flex items-center gap-3">
                             <img src="https://i.pravatar.cc/40?img=12" class="w-11 h-11 rounded-full" />
                             <div>
                                 <p class="font-medium text-[15px]">{{ $displayName }}</p>
                             </div>
                         </div>
-                        <span class="bg-red-500 text-xs px-2 py-0.5 rounded-full">2</span>
+
+                        <span class="bg-red-500 text-xs px-2 py-0.5 rounded-full">
+                            {{ $user->messages_count }}
+                        </span>
+
                     </div>
                 @endforeach
             </div>
+
 
         </section>
 
@@ -79,6 +86,28 @@
 
 @push('scripts')
     <script>
+        // ---------------------
+        //   BUSCADOR EN VIVO
+        // ---------------------
+        const searchInput = document.getElementById("searchInput");
+        const chatlist = document.getElementById("chatlist");
+
+        searchInput.addEventListener("input", function() {
+            const text = this.value.toLowerCase().trim();
+
+            document.querySelectorAll("#chatlist > div").forEach(item => {
+                const name = item.innerText.toLowerCase();
+
+                // Mostrar u ocultar
+                if (name.includes(text)) {
+                    item.style.display = "flex";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+
+
         // ---------------------
         //  DEFENSIVE CSRF FIX
         // ---------------------
@@ -145,7 +174,7 @@
 
             const avatar = document.createElement("img");
             avatar.src = isUser ?
-                "https://i.pravatar.cc/40?img=5" :
+                "/img/bot.jpg" :
                 "https://i.pravatar.cc/40?img=12";
             avatar.className = "w-10 h-10 rounded-full";
 
@@ -196,14 +225,15 @@
                 bubble.appendChild(img);
             } else {
                 bubble.className = isUser ?
-                    "bg-blue-600 text-white px-4 py-2 rounded-2xl inline-block text-right" :
-                    "bg-[#1A2236] px-4 py-2 rounded-2xl inline-block";
+                    "max-w-[372px] bg-blue-600 text-white px-4 py-2 rounded-2xl inline-block text-right" :
+                    "max-w-[372px] bg-[#1A2236] px-4 py-2 rounded-2xl inline-block";
                 bubble.textContent = msg.message;
             }
 
             // ----------------------------------------
             // ARMADO VISUAL
             // ----------------------------------------
+
             if (isUser) {
                 info.className = "text-right";
                 if (showTime) info.appendChild(time);
