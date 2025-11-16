@@ -69,10 +69,10 @@
             <!-- INPUT BAR -->
             <div class="p-5 border-t border-white/5 flex items-center gap-3">
                 <input id="message-input" class="flex-1 bg-[#1A2236] px-4 py-3 rounded-2xl placeholder-gray-500"
-                    placeholder="Message..." />
+                    placeholder="Mensaje..." />
 
                 <button id="send-btn" class="px-5 py-3 bg-blue-600 rounded-2xl text-white">
-                    Send
+                    Responder
                 </button>
             </div>
 
