@@ -73,11 +73,45 @@ class MapController extends Controller
             ->orderBy('total', 'desc')
             ->get();
 
-        // Nombre completo del asesor formateado
+        // Nombre completo del asesor
         $asesorData->transform(function ($a) {
             $a->full_name = trim($a->nombres . ' ' . $a->apellidos);
             return $a;
         });
+
+
+        // ------------------------------------------------------
+        // 5) NUEVO: SUMATORIA POR CITY Y SERVICE_ID (para openModal)
+        // ------------------------------------------------------
+        // ------------------------------------------------------
+        // 5) PREPARAR cityServiceSummary (asociativo por city_id)
+        // ------------------------------------------------------
+        $cityServices = DB::table('reports')
+            ->select(
+                'city_id',
+                DB::raw("SUM(CASE WHEN service_id = 1 THEN 1 ELSE 0 END) AS formalizacion"),
+                DB::raw("SUM(CASE WHEN service_id = 2 THEN 1 ELSE 0 END) AS asesorias"),
+                DB::raw("SUM(CASE WHEN service_id = 3 THEN 1 ELSE 0 END) AS eventos"),
+                DB::raw("SUM(CASE WHEN service_id = 4 THEN 1 ELSE 0 END) AS consultas_asesor")
+            )
+            ->groupBy('city_id')
+            ->orderBy('city_id')
+            ->get();
+
+        // Convertir a array asociativo indexado por city_id para JS
+        $cityServiceSummary = $cityServices
+            ->mapWithKeys(function ($item) {
+                return [
+                    (int)$item->city_id => [
+                        'city_id' => (int)$item->city_id,
+                        'formalizacion' => (int)$item->formalizacion,
+                        'asesorias' => (int)$item->asesorias,
+                        'eventos' => (int)$item->eventos,
+                        'consultas' => (int)$item->consultas_asesor,
+                    ]
+                ];
+            })->toArray();
+
 
 
         // ------------------------------------------------------
@@ -90,7 +124,9 @@ class MapController extends Controller
             'growthTotals',
             'cityLabels',
             'cityTotals',
-            'asesorData'   // 👈 nuevo dataset
+            'asesorData',
+            'cityServices',
+            'cityServiceSummary' // <-- agregar aquí
         ));
     }
 }

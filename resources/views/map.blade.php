@@ -154,10 +154,12 @@
                             <div class="text-sm">
                                 <p id="region-id" class="font-medium text-slate-200">Nombre</p>
                                 <ul class="text-slate-400 mt-1 text-xs leading-relaxed">
-                                    <li>Empresas activas: <span id="m-empresas" class="text-cyan-300"></span></li>
-                                    <li>Tasa digitalización: <span id="m-digi" class="text-cyan-300"></span></li>
-                                    <li>Crecimiento anual: <span id="m-crec" class="text-cyan-300"></span></li>
+                                    <li>Formalizaciones: <span id="m-empresas" class="text-cyan-300"></span></li>
+                                    <li>Asesorías: <span id="m-digi" class="text-cyan-300"></span></li>
+                                    <li>Consulta de Eventos: <span id="m-crec" class="text-cyan-300"></span></li>
+                                    <li>Consultas por Asesor: <span id="m-consultas" class="text-cyan-300"></span></li>
                                 </ul>
+
                             </div>
                         </div>
                     </div>
@@ -173,6 +175,10 @@
 @endsection
 
 @push('scripts')
+    <script>
+        const cityServiceSummary = @json($cityServiceSummary);
+    </script>
+
     <script>
         // User menu
         const userBtn = document.getElementById('userMenuBtn');
@@ -199,7 +205,7 @@
             region.style.fill = colors[idx % colors.length];
             region.addEventListener('click', () => {
                 const name = region.getAttribute('title') || 'Región';
-                openModal(name, colors[idx % colors.length]);
+                openModal(name, colors[idx % colors.length], idx);
             });
         });
 
@@ -208,13 +214,30 @@
         const overlay = document.getElementById('overlay');
         const btnClose = document.getElementById('btn-close');
 
-        function openModal(nombre, color) {
+        function openModal(nombre, color, idx) {
             document.getElementById('region-title').textContent = nombre;
             document.getElementById('region-id').textContent = nombre;
             document.getElementById('region-color').style.background = color;
-            document.getElementById('m-empresas').textContent = Math.floor(Math.random() * 4000 + 500);
-            document.getElementById('m-digi').textContent = Math.floor(Math.random() * 40 + 60) + '%';
-            document.getElementById('m-crec').textContent = (Math.random() * 10 + 5).toFixed(1) + '%';
+
+            // 1) Obtener city_id REAL desde $cityLabels
+            const label = @json($cityLabels)[idx]; // "Ciudad 5"
+            const cityId = parseInt(label.replace("Ciudad ", "").trim());
+
+            // 2) Buscar datos por city_id
+            const data = cityServiceSummary[cityId] ?? null;
+
+            if (!data) {
+                document.getElementById('m-empresas').textContent = 0;
+                document.getElementById('m-digi').textContent = '0';
+                document.getElementById('m-crec').textContent = '0';
+                document.getElementById('m-consultas').textContent = 0;
+            } else {
+                document.getElementById('m-empresas').textContent = data.formalizacion;
+                document.getElementById('m-digi').textContent = data.asesorias;
+                document.getElementById('m-crec').textContent = data.eventos;
+                document.getElementById('m-consultas').textContent = data.consultas;
+            }
+
             modal.classList.remove('hidden');
         }
 
