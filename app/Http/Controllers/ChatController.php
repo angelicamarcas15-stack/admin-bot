@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Message;
 use App\Events\MessageSent;
+use Illuminate\Support\Facades\DB;
 
 class ChatController extends Controller
 {
@@ -14,9 +15,29 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('nombres')->get();
-        return view('admin.chat', compact('users'));
+        $sub = DB::table('messages')
+            ->select(
+                'user_id',
+                DB::raw('MAX(created_at) as last_message_at'),
+                DB::raw('COUNT(*) as messages_count')
+            )
+            ->groupBy('user_id');
+
+        $users = User::joinSub($sub, 'm', function ($join) {
+            $join->on('users.id', '=', 'm.user_id');
+        })
+            ->select(
+                'users.*',
+                'm.last_message_at',
+                'm.messages_count'
+            )
+            ->orderByDesc('m.last_message_at')
+            ->get();
+
+        return view('chat', compact('users'));
     }
+
+
 
     /**
      * Devuelve los mensajes de un usuario.

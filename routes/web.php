@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdvisorController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\UbigeoController;
 use App\Http\Controllers\AIAssistantSettingsController;
 
@@ -24,6 +25,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/dashboard', [ChatController::class, 'index']);
     Route::get('/messages/{user}', [ChatController::class, 'fetchMessages']);
     Route::post('/messages', [ChatController::class, 'send']);
+
+    Route::get('/map', [MapController::class, 'index']);
 
     Route::resource('advisors', AdvisorController::class)->names([
         'index' => 'admin.advisors',
@@ -49,6 +52,3 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout']);
 });
-
-
-
