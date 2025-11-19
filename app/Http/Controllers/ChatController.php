@@ -15,7 +15,7 @@ class ChatController extends Controller
     public function index()
     {
         $users = User::orderBy('nombres')->get();
-        return view('chat', compact('users'));
+        return view('admin.chat', compact('users'));
     }
 
     /**

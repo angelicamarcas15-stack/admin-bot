@@ -18,5 +18,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call([
+            UbigeoDepartmentSeeder::class,
+            UbigeoProvinceSeeder::class,
+            UbigeoDistrictSeeder::class,
+        ]);
     }
 }
