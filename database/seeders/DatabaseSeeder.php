@@ -18,10 +18,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        //php artisan db:seed --class=BotWebReferencesSeeder
+
+
         $this->call([
             UbigeoDepartmentSeeder::class,
             UbigeoProvinceSeeder::class,
             UbigeoDistrictSeeder::class,
+            BotConfigurationSeeder::class,
+            BotWebReferencesSeeder::class,
         ]);
     }
 }

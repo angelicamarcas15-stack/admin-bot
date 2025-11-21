@@ -29,7 +29,7 @@
             <div id="userMenu"
                 class="hidden absolute right-0 mt-2 w-40 bg-[#11192F] border border-white/10 rounded-xl shadow-xl z-50">
 
-                <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 rounded-t-xl" href="#">Ver perfil</a>
+                <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 rounded-t-xl" href="{{ route('admin.profile') }}">Ver perfil</a>
 
                 <button
                     onclick="document.getElementById('logoutForm').submit()"

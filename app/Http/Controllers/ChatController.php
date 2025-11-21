@@ -34,7 +34,7 @@ class ChatController extends Controller
             ->orderByDesc('m.last_message_at')
             ->get();
 
-        return view('chat', compact('users'));
+        return view('admin.chat', compact('users'));
     }
 
 
