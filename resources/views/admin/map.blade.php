@@ -181,14 +181,14 @@
 
     <script>
         // User menu
-        const userBtn = document.getElementById('userMenuBtn');
-        const userMenu = document.getElementById('userMenu');
-        userBtn.addEventListener('click', () => userMenu.classList.toggle('hidden'));
-        document.addEventListener('click', (e) => {
-            if (!userBtn.contains(e.target) && !userMenu.contains(e.target)) {
-                userMenu.classList.add('hidden');
-            }
-        });
+        // const userBtn = document.getElementById('userMenuBtn');
+        // const userMenu = document.getElementById('userMenu');
+        // userBtn.addEventListener('click', () => userMenu.classList.toggle('hidden'));
+        // document.addEventListener('click', (e) => {
+        //     if (!userBtn.contains(e.target) && !userMenu.contains(e.target)) {
+        //         userMenu.classList.add('hidden');
+        //     }
+        // });
 
         // Dark/Light Mode
         document.getElementById('lightBtn').addEventListener('click', () => document.body.classList.add('light-mode'));

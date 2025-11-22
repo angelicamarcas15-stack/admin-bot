@@ -1,0 +1,28 @@
+#config {
+    scrollbar-width: thin !important;
+    scrollbar-color: #4b5563 #111827 !important;
+}
+
+
+#config::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+
+#config::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+
+#config::-webkit-scrollbar-thumb {
+    background-color: #4b5563 !important;
+    /* gris */
+    border-radius: 9999px !important;
+    border: 2px solid transparent !important;
+    background-clip: padding-box !important;
+}
+
+
+#config::-webkit-scrollbar-thumb:hover {
+    background-color: #6b7280 !important;
+}

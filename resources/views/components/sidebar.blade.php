@@ -2,24 +2,25 @@
     <nav class="flex-1 space-y-1">
 
         <a href="/dashboard"
-           class="flex items-center gap-3 px-3 py-2 rounded-xl
+            class="flex items-center gap-3 px-3 py-2 rounded-xl
            {{ request()->is('dashboard') ? 'bg-blue-600 text-white' : 'hover:bg-white/10' }}">
             Inbox
         </a>
 
         <a href="/map"
-           class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10">
+            class="flex items-center gap-3 px-3 py-2 rounded-xl
+           {{ request()->is('map') ? 'bg-blue-600 text-white' : 'hover:bg-white/10' }}">
             Analytics
         </a>
 
         <a href="{{ route('admin.advisors') }}"
-           class="flex items-center gap-3 px-3 py-2 rounded-xl
+            class="flex items-center gap-3 px-3 py-2 rounded-xl
            {{ request()->is('advisors*') ? 'bg-blue-600 text-white' : 'hover:bg-white/10' }}">
             Asesores
         </a>
 
         <a href="{{ route('admin.ai_assistant_settings') }}"
-           class="flex items-center gap-3 px-3 py-2 rounded-xl
+            class="flex items-center gap-3 px-3 py-2 rounded-xl
            {{ request()->is('ai-assistant*') ? 'bg-blue-600 text-white' : 'hover:bg-white/10' }}">
             Configurar Asistente
         </a>

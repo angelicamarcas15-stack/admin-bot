@@ -117,7 +117,7 @@ class MapController extends Controller
         // ------------------------------------------------------
         // ENVIAR TODO A LA VISTA
         // ------------------------------------------------------
-        return view('map', compact(
+        return view('admin.map', compact(
             'labels',
             'totals',
             'growthLabels',

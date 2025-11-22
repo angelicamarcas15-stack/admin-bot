@@ -18,12 +18,16 @@ use App\Http\Controllers\AIAssistantSettingsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [LoginController::class, 'view'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:admin')->group(function () {
+
     Route::get('/dashboard', [ChatController::class, 'index']);
+
     Route::get('/messages/{user}', [ChatController::class, 'fetchMessages']);
+
     Route::post('/messages', [ChatController::class, 'send']);
 
     Route::get('/map', [MapController::class, 'index']);
@@ -42,7 +46,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/ubigeo/provinces/{department}', [UbigeoController::class, 'provinces'])->name('ubigeo.provinces');
     Route::get('/ubigeo/districts/{province}', [UbigeoController::class, 'districts'])->name('ubigeo.districts');
 
-     Route::get('/ai-assistant', [AIAssistantSettingsController::class, 'index'])
+    Route::get('/ai-assistant', [AIAssistantSettingsController::class, 'index'])
         ->name('admin.ai_assistant_settings');
 
     Route::post('/ai-assistant', [AIAssistantSettingsController::class, 'update'])
@@ -50,5 +54,5 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
-    Route::post('/logout', [LoginController::class, 'logout']);
+    // Route::post('/logout', [LoginController::class, 'logout']);
 });
