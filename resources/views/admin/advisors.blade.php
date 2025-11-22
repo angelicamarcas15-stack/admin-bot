@@ -199,8 +199,8 @@
 
         addBtn.addEventListener('click', () => {
             modalTitle.textContent = 'Agregar Asesor';
-            setSelectOptions(provinciaSelect, []);
-            setSelectOptions(distritoSelect, []);
+            setSelectOptions(provinciaSelect, [], 'province');
+            setSelectOptions(distritoSelect, [], 'district');
             openModal();
         });
 
@@ -265,8 +265,8 @@
             };
 
             const placeholder = labelKey && placeholders[labelKey] ?
-                `Seleccione ${placeholders[labelKey]}` :
-                'Seleccione';
+                `Seleccionar ${placeholders[labelKey]}` :
+                'Seleccionar';
 
             selectElement.innerHTML = `<option value="">${placeholder}</option>`;
 
@@ -283,7 +283,7 @@
                 case 'province':
                     provinciaSelect.value = "";
                     distritoSelect.value = "";
-                    setSelectOptions(distritoSelect, []);
+                    setSelectOptions(distritoSelect, [], 'district');
 
                     const provinces = await getProvinces(value);
                     setSelectOptions(provinciaSelect, provinces.data, 'province', 'id_prov');

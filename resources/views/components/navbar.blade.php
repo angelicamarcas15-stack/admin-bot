@@ -2,7 +2,7 @@
 
     <div class="flex items-center gap-2">
         <div class="w-7 h-7 rounded-md bg-gradient-to-r from-blue-500 to-blue-300"></div>
-        <span class="text-lg font-semibold tracking-wide text-white">PROGRAMA</span>
+        <span class="text-lg font-semibold tracking-wide text-white">PNTE</span>
     </div>
 
     <div class="flex items-center gap-6 text-gray-300">
@@ -19,7 +19,7 @@
         <div class="relative">
             <button id="userMenuBtn" class="flex items-center gap-2 cursor-pointer select-none">
                 <span class="text-sm text-white">{{ Auth::guard('admin')->user()->name }}</span>
-                <img src="https://i.pravatar.cc/40?u={{ Auth::guard('admin')->user()->id }}"
+                <img src="https://yt3.googleusercontent.com/Aw6kv2Ey7_d03wZrhDuSPcgsr5McFFO6TPtkV1ZkdGsbEm1C4hVjFn8RFeDlX3fMvs10qkkl=s900-c-k-c0x00ffffff-no-rj?u={{ Auth::guard('admin')->user()->id }}"
                     class="w-8 h-8 rounded-full" />
                 <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5"
                     viewBox="0 0 24 24">
@@ -30,8 +30,8 @@
             <div id="userMenu"
                 class="hidden absolute right-0 mt-2 w-40 bg-[#11192F] border border-white/10 rounded-xl shadow-xl z-50">
 
-                <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 rounded-t-xl" href="#">Ver
-                    perfil</a>
+                <a class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/10 rounded-t-xl"
+                    href="{{ route('admin.profile') }}">Ver perfil</a>
 
                 <button onclick="document.getElementById('logoutForm').submit()"
                     class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/10 rounded-b-xl">
