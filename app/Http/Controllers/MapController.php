@@ -49,12 +49,27 @@ class MapController extends Controller
         // 3) DATOS PARA EL BAR CHART (City)
         // ------------------------------------------------------
         $cityData = DB::table('reports')
-            ->select('city_id', DB::raw('COUNT(*) as total'))
-            ->groupBy('city_id')
-            ->orderBy('city_id')
+            ->select(
+                'reports.city_id',
+                'p.province as city_name',
+                'd.department as department_name',
+                DB::raw('COUNT(*) as total')
+            )
+            ->join('ubigeo_province as p', 'p.id_prov', '=', 'reports.city_id')
+            ->join('ubigeo_department as d', 'd.id_depa', '=', 'p.id_depa')
+            ->groupBy(
+                'reports.city_id',
+                'p.province',
+                'd.department'
+            )
+            ->orderBy('reports.city_id')
             ->get();
 
-        $cityLabels = $cityData->map(fn($c) => "Ciudad " . $c->city_id);
+
+
+        $cityLabels = $cityData->map(function ($c) {
+            return "{$c->city_name} - {$c->department_name}";
+        });
         $cityTotals = $cityData->pluck('total');
 
 

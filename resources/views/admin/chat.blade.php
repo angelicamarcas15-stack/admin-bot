@@ -29,6 +29,7 @@
                         $nombreCompleto = trim(($user->nombres ?? '') . ' ' . ($user->apellidos ?? ''));
                         $phone = FormatHelper::cleanPhone($user->phone ?? '');
                         $displayName = $nombreCompleto !== '' ? $nombreCompleto : $phone;
+                        $initial = $nombreCompleto !== '' ? strtoupper(substr($nombreCompleto, 0, 1)) : null;
                     @endphp
 
                     <div onclick="selectUser({{ $user->id }}, '{{ addslashes($displayName) }}')"
@@ -36,7 +37,16 @@
                         class="flex items-center justify-between p-3 rounded-xl bg-[#1A2236] hover:bg-[#1f2a45] cursor-pointer">
 
                         <div class="flex items-center gap-3">
-                            <img src="https://i.pravatar.cc/40?img=12" class="w-11 h-11 rounded-full" />
+                            @if ($initial)
+                                <div class="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-lg">
+                                    {{ $initial }}
+                                </div>
+                            @else
+                                <div class="w-11 h-11 rounded-full bg-gray-500 flex items-center justify-center text-white font-semibold text-lg">
+                                    <span class="text-xs">?</span>
+                                </div>
+                            @endif
+
                             <div>
                                 <p class="font-medium text-[15px]">{{ $displayName }}</p>
                             </div>

@@ -20,8 +20,8 @@
         <div id="wrapper-staticts" class="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
             <section class="lg:col-span-6 overflow-y-auto p-4 space-y-4">
                 <h1 class="text-2xl md:text-3xl font-semibold text-cyan-400">Panel Estadístico - Perú</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white/5 rounded-xl p-4">
+                <div class="">
+                    <div class="bg-white/5 rounded-xl p-4 mb-4">
                         <h2 class="text-base text-cyan-300 mb-2">Empresas por Región</h2>
 
                         <!-- Contenedor con scroll horizontal -->
@@ -273,6 +273,7 @@
                 scales: {
                     x: {
                         ticks: {
+                            display: false,
                             color: textColor
                         }
                     },
