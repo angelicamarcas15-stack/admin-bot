@@ -82,7 +82,11 @@
     </style>
 </head>
 
-<body>
+@php
+    $theme = $_COOKIE['theme'] ?? 'dark';
+@endphp
+
+<body class="{{ $theme === 'light' ? 'light-mode' : '' }}">
 
     @yield('body')
 
