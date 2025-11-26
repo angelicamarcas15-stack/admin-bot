@@ -273,7 +273,6 @@
                 scales: {
                     x: {
                         ticks: {
-                            display: false,
                             color: textColor
                         }
                     },

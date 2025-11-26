@@ -51,15 +51,12 @@ class MapController extends Controller
         $cityData = DB::table('reports')
             ->select(
                 'reports.city_id',
-                'p.province as city_name',
                 'd.department as department_name',
                 DB::raw('COUNT(*) as total')
             )
-            ->join('ubigeo_province as p', 'p.id_prov', '=', 'reports.city_id')
-            ->join('ubigeo_department as d', 'd.id_depa', '=', 'p.id_depa')
+            ->join('ubigeo_department as d', 'd.id_depa', '=', 'reports.city_id')
             ->groupBy(
                 'reports.city_id',
-                'p.province',
                 'd.department'
             )
             ->orderBy('reports.city_id')
@@ -68,7 +65,7 @@ class MapController extends Controller
 
 
         $cityLabels = $cityData->map(function ($c) {
-            return "{$c->city_name} - {$c->department_name}";
+            return "{$c->department_name}";
         });
         $cityTotals = $cityData->pluck('total');
 

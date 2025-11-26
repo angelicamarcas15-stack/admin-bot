@@ -32,7 +32,7 @@
                         $initial = $nombreCompleto !== '' ? strtoupper(substr($nombreCompleto, 0, 1)) : null;
                     @endphp
 
-                    <div onclick="selectUser({{ $user->id }}, '{{ addslashes($displayName) }}')"
+                    <div onclick='selectUser(@json($user))'
                         id="user-{{ $user->id }}"
                         class="flex items-center justify-between p-3 rounded-xl bg-[#1A2236] hover:bg-[#1f2a45] cursor-pointer">
 
@@ -131,6 +131,7 @@
 
         let selectedUser = null;
         let lastMessageCount = 0;
+        let selectedUserName = null;
 
 
         function clearMessages() {
@@ -182,11 +183,28 @@
                 "flex items-start justify-end gap-3" :
                 "flex items-start gap-3";
 
-            const avatar = document.createElement("img");
-            avatar.src = isUser ?
-                "/img/bot.jpg" :
-                "https://i.pravatar.cc/40?img=12";
-            avatar.className = "w-10 h-10 rounded-full";
+            let avatar;
+
+            if (isUser) {
+                avatar = document.createElement("img");
+                avatar.src = "/img/bot.jpg";
+                avatar.className = "w-10 h-10 rounded-full";
+
+            } else {
+                const avatarWrapper = document.createElement("div");
+                avatarWrapper.className =
+                    "w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold text-lg";
+
+                if (selectedUserName && selectedUserName.trim() !== "") {
+                    avatarWrapper.classList.add("bg-blue-600");
+                    avatarWrapper.textContent = selectedUserName.charAt(0).toUpperCase();
+                } else {
+                    avatarWrapper.classList.add("bg-gray-500");
+                    avatarWrapper.innerHTML = `<span class="text-sm">?</span>`;
+                }
+
+                avatar = avatarWrapper;
+            }
 
             const info = document.createElement("div");
 
@@ -279,11 +297,34 @@
             if (el) el.classList.add("active-user");
         }
 
+        function cleanPhone(phone) {
+            if (!phone) return '';
 
-        async function selectUser(id, name) {
+            let p = String(phone).trim();
+
+            if (p.includes('@')) {
+                p = p.split('@')[0];
+            }
+
+            p = p.replace(/\D/g, '');
+
+            if (p.startsWith('51')) {
+                p = p.substring(2);
+            }
+
+            return p;
+        }
+
+
+        async function selectUser({ id, nombres, apellidos, phone }, name) {
+            const nombreCompleto = `${nombres ?? ''} ${apellidos ?? ''}`.trim();
+            const cleanedPhone = cleanPhone(phone);
+            const displayName = nombreCompleto !== '' ? nombreCompleto : cleanedPhone;
+            const initial = nombreCompleto !== '' ? nombreCompleto.substring(0, 1).toUpperCase() : null;
             setActiveUser(id);
             selectedUser = id;
-            header.textContent = `Conversación con ${name}`;
+            selectedUserName = initial ? displayName : null;
+            header.textContent = `Conversación con ${displayName}`;
             clearMessages();
 
             const msgs = await loadMessages(id);
